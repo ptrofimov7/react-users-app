@@ -59,8 +59,6 @@ const Modal = ({ children, open, onClose }) => {
       }
    }, [])
 
-   console.log({ refFirstElement, refLastElement, ref, lastActiveElement })
-
    return (
       <div className={`${styles.modalLayout} ${open ? styles.modalLayoutActive : ''}`} onClick={handleClose} >
          <div className={styles.modalWrapper}
