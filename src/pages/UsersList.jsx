@@ -38,7 +38,7 @@ const UsersList = () => {
                 <h2>Users</h2>
                 <div>{renderedUsers}</div>
             </section>
-            <Modal open={open} onClose={handleClose}>
+            <Modal open={open} onClose={handleClose} key={selectedUserId}>
                 {selectedUserId && <AlbumsListByUser userId={selectedUserId} />}
             </Modal>
         </>)

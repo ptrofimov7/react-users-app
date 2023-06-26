@@ -8,15 +8,44 @@ const Modal = ({ children, open, onClose }) => {
    const refLastElement = useRef(null)
    const lastActiveElement = useRef(null)
 
-   const handleClose = () => {
+   const handleClose = (e) => {
       onClose()
       if (lastActiveElement.current) {
          lastActiveElement.current?.focus()
       }
    }
 
+   const handleKeyDown = (e) => {
+      e.stopPropagation()
+      if (e.key === 'Escape') {
+         handleClose()
+         return;
+      }
+      // Listen for the Tab key
+      if (e.keyCode === 9) {
+         // If Shift + Tab
+         if (e.shiftKey) {
+            // If the current element in focus is the first focusable element within the modal window...
+            if (document.activeElement === refFirstElement.current) {
+               e.preventDefault();
+               // ...jump to the last focusable element
+               refLastElement.current?.focus();
+            }
+            // if Tab
+         } else {
+            // If the current element in focus is the last focusable element within the modal window...
+            // eslint-disable-next-line no-lonely-if
+            if (document.activeElement === refLastElement.current) {
+               e.preventDefault();
+               // ...jump to the first focusable element
+               refFirstElement.current?.focus();
+            }
+         }
+      }
+   }
+
    useEffect(() => {
-      lastActiveElement.current = document.activeElement
+      lastActiveElement.current = !lastActiveElement.current ? document.activeElement : lastActiveElement.current
       const focusableElementsString = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
       const modal = ref.current
       if (modal) {
@@ -30,43 +59,19 @@ const Modal = ({ children, open, onClose }) => {
       }
    }, [])
 
+   console.log({ refFirstElement, refLastElement, ref, lastActiveElement })
+
    return (
-      <div className={`${styles.modalLayout} ${open ? styles.modalLayoutActive: ''}`} onClick={handleClose}>
+      <div className={`${styles.modalLayout} ${open ? styles.modalLayoutActive : ''}`} onClick={handleClose} >
          <div className={styles.modalWrapper}
             role='dialog'
-            aria-labelledby="change-item"
+            aria-labelledby="show-albums"
             id="modal2"
             ref={ref}
             tabIndex={0}
-            onClick={(e) => e.stopPropagation()}
-            onKeyDown={(e) => {
-               e.stopPropagation()
-               if (e.key === 'Escape') {
-                  handleClose()
-                  return;
-               }
-               // Listen for the Tab key
-               if (e.keyCode === 9) {
-                  // If Shift + Tab
-                  if (e.shiftKey) {
-                     // If the current element in focus is the first focusable element within the modal window...
-                     if (document.activeElement === refFirstElement.current) {
-                        e.preventDefault();
-                        // ...jump to the last focusable element
-                        refLastElement.current?.focus();
-                     }
-                     // if Tab
-                  } else {
-                     // If the current element in focus is the last focusable element within the modal window...
-                     // eslint-disable-next-line no-lonely-if
-                     if (document.activeElement === refLastElement.current) {
-                        e.preventDefault();
-                        // ...jump to the first focusable element
-                        refFirstElement.current?.focus();
-                     }
-                  }
-               }
-            }}>
+            onClick={e => e.stopPropagation()}
+            onKeyDown={handleKeyDown}
+         >
             {children}
             <button aria-label="close" className={styles.btnClose} onClick={handleClose}>X</button>
          </div>
