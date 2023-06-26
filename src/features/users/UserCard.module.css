@@ -1,0 +1,27 @@
+.container {
+   display: flex;
+   flex-direction: column;
+}
+
+.actions {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   gap: 20px;
+   margin-block-start: 10px;
+}
+
+.btnAlbums {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.actions a, .actions a:visited {
+   color: purple;
+   text-decoration: none;
+ }
+
+ .actions a:hover, .actions a:focus {
+   text-decoration: underline;
+ }
+

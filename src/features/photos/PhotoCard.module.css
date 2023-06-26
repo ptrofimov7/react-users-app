@@ -1,0 +1,17 @@
+.figure {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+   width: 100%;
+}
+
+.image {
+   width: 100%;
+}
+
+.imageCaption {
+   text-overflow: ellipsis;
+   width: 100px;
+   overflow: hidden;
+   white-space: nowrap;
+}

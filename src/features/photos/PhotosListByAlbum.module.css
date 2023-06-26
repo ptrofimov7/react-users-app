@@ -1,0 +1,9 @@
+.photos {
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+   gap: 20px 10px;
+}
+
+.title {
+   margin-bottom: 10px;
+}
