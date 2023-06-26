@@ -12,7 +12,7 @@ const UserCard = ({ name, id, onOpen }) => {
       <article className={styles.container}>
          <h3>{name}</h3>
          <div className={styles.actions}>
-            <Link to={`/${id}`} className={styles.linkPosts}>Posts</Link>
+            <Link to={`/user/${id}`} className={styles.linkPosts}>Posts</Link>
             <button className={styles.btnAlbums} onClick={handleOpen}>Albums</button>
          </div>
       </article>
