@@ -35,7 +35,7 @@ const PhotosListByAlbum = ({ albumId }) => {
 }
 
 PhotosListByAlbum.propTypes = {
-    albumId: PropTypes.string.isRequired,
+    albumId: PropTypes.number.isRequired,
 };
 
 

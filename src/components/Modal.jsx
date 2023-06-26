@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import styles from './Modal.module.css'
 
-const Modal = ({ children, openUserId, onClose }) => {
+const Modal = ({ children, open, onClose }) => {
 
    const ref = useRef(null)
    const refFirstElement = useRef(null)
@@ -30,12 +30,8 @@ const Modal = ({ children, openUserId, onClose }) => {
       }
    }, [])
 
-   if (!openUserId) {
-      return null
-   }
-
    return (
-      <>
+      <div className={`${styles.modalLayout} ${open ? styles.modalLayoutActive: ''}`} onClick={handleClose}>
          <div className={styles.modalWrapper}
             role='dialog'
             aria-labelledby="change-item"
@@ -74,8 +70,7 @@ const Modal = ({ children, openUserId, onClose }) => {
             {children}
             <button aria-label="close" className={styles.btnClose} onClick={handleClose}>X</button>
          </div>
-         <div className={styles.modalLayout} onClick={handleClose} />
-      </>
+      </div>
    );
 };
 

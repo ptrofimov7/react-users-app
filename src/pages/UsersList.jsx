@@ -14,14 +14,16 @@ const UsersList = () => {
         error
     } = useGetUsersQuery('getUsers')
 
+    const [open, setOpen] = useState(false)
+    const [selectedUserId, setSelectedUserId] = useState(null)
 
-    const [openUserId, setOpenUserId] = useState(null)
-
-    const onClose = () => {
-        setOpenUserId(null)
-    }
-    const onOpen = useCallback((id) => {
-        setOpenUserId(id)
+    const handleClose = useCallback(() => {
+        setSelectedUserId(null)
+        setOpen(false)
+    }, [])
+    const handleOpen = useCallback((id) => {
+        setSelectedUserId(id)
+        setOpen(true)
     }, [])
 
     let content;
@@ -29,18 +31,16 @@ const UsersList = () => {
         content = <p>"Loading..."</p>;
     } else if (isSuccess) {
         const renderedUsers = users.ids.map(userId => (
-            <UserCard key={userId} id={userId} name={users.entities[userId].name} onOpen={onOpen} />
+            <UserCard key={userId} id={userId} name={users.entities[userId].name} onOpen={handleOpen} />
         ))
         content = (<>
             <section>
                 <h2>Users</h2>
                 <div>{renderedUsers}</div>
             </section>
-            {openUserId && (
-                <Modal openUserId={openUserId} onClose={onClose}>
-                    <AlbumsListByUser userId={openUserId} userName={users.entities[openUserId].name}>
-                    </AlbumsListByUser>
-                </Modal>)}
+            <Modal open={open} onClose={handleClose}>
+                {selectedUserId && <AlbumsListByUser userId={selectedUserId} />}
+            </Modal>
         </>)
     } else if (isError) {
         content = <p>{error}</p>;

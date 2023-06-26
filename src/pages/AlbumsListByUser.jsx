@@ -3,8 +3,16 @@ import PropTypes from 'prop-types'
 import AlbumCard from '../features/albums/AlbumCard';
 import { useGetAlbumsByUserIdQuery } from '../features/albums/albumSlice';
 import PhotosListByAlbum from '../features/photos/PhotosListByAlbum';
+import { useGetUsersQuery } from '../features/users/userSlice';
 
-const AlbumsListByUser = ({ userId, userName }) => {
+const AlbumsListByUser = ({ userId }) => {
+
+  const { user, isSuccess: isSuccessUser } = useGetUsersQuery('getUsers', {
+    selectFromResult: ({ data, isSuccess }) => ({
+        user: data?.entities[userId],
+        isSuccess
+    }),
+})
 
   const {
     data: albumsByUserId,
@@ -25,7 +33,7 @@ const AlbumsListByUser = ({ userId, userName }) => {
     ))
     content = (
       <section>
-        <h2>Albums by user: {userName}</h2>
+        <h2>Albums by user: {isSuccessUser ? user?.name: ""}</h2>
         <div>{renderedAlbums}</div>
       </section>
     )
@@ -37,7 +45,6 @@ const AlbumsListByUser = ({ userId, userName }) => {
 }
 
 AlbumsListByUser.propTypes = {
-  userName: PropTypes.string.isRequired,
   userId: PropTypes.number.isRequired,
 };
 

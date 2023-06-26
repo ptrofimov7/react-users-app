@@ -8,9 +8,18 @@
    position: fixed;
    top: 0;
    left: 0;
-   display: block;
+   opacity: 0;
+   pointer-events: none;
+   visibility: hidden;
    margin: 0;
    padding: 0;
+   transition: all 1s ease;
+}
+
+.modalLayoutActive {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: all;
 }
 
 .modalWrapper {
@@ -29,19 +38,8 @@
   gap: 20px;
   height: 100%;
   overflow: auto;
-  transition: all ease 3s;
-  animation-name: appear;
-  animation-duration: 300ms;
+  transition: all ease 1s;
  }
-
- @keyframes appear {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 
  @media (max-width: 900px) {
   .modalWrapper {

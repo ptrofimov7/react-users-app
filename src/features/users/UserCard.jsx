@@ -4,25 +4,21 @@ import styles from './UserCard.module.css'
 import { Link } from 'react-router-dom'
 
 const UserCard = ({ name, id, onOpen }) => {
-   const handleOpen = (e) => {
-      e.stopPropagation()
-      onOpen(id)
-   }
    return (
-      <article className={styles.container}>
+      <article className={styles.container} onClick={e => e.stopPropagation()}>
          <h3>{name}</h3>
          <div className={styles.actions}>
             <Link to={`/user/${id}`} className={styles.linkPosts}>Posts</Link>
-            <button className={styles.btnAlbums} onClick={handleOpen}>Albums</button>
+            <button className={styles.btnAlbums} onClick={() => onOpen(id)}>Albums</button>
          </div>
       </article>
-   )
+    )
 }
 
 UserCard.propTypes = {
    name: PropTypes.string.isRequired,
    id: PropTypes.number.isRequired,
-   onOpen: PropTypes.func
+   onOpen: PropTypes.func.isRequired
 };
 
 export default React.memo(UserCard)
