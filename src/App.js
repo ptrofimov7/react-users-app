@@ -11,7 +11,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="user">
           <Route index element={<UsersList />} />
-          <Route path=":userId" element={<PostsListByUser />} />
+          <Route path=":userId/post" element={<PostsListByUser />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

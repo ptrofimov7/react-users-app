@@ -8,7 +8,7 @@ const UserCard = ({ name, id, onOpen }) => {
       <article className={styles.container} onClick={e => e.stopPropagation()}>
          <h3>{name}</h3>
          <div className={styles.actions}>
-            <Link to={`/user/${id}`} className={styles.linkPosts}>Posts</Link>
+            <Link to={`/user/${id}/post`} className={styles.linkPosts}>Posts</Link>
             <button className={styles.btnAlbums} onClick={() => onOpen(id)}>Albums</button>
          </div>
       </article>

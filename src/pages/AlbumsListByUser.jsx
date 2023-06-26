@@ -27,7 +27,7 @@ const AlbumsListByUser = ({ userId }) => {
     content = <p>"Loading..."</p>;
   } else if (isSuccess) {
     const renderedAlbums = albumsByUserId.ids.map(albumId => (
-      <AlbumCard key={albumId} id={albumId} title={albumsByUserId.entities[albumId].title}>
+      <AlbumCard key={albumId} title={albumsByUserId.entities[albumId].title}>
         <PhotosListByAlbum albumId={albumId}></PhotosListByAlbum>
       </AlbumCard>
     ))
